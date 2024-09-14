@@ -65,6 +65,8 @@ $ kubectl apply -f resources/prod_cluster/clusterprofile_grafana_prometheus.yaml
 $ ./sveltosctl show addons
 ```
 
+**Note**: Feel free to update the Helm chart versions mentioned in the manifest files.
+
 ### Access Resources
 
 #### Hubble UI
