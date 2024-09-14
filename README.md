@@ -1,7 +1,5 @@
 # Civo Navigate Berlin 2024
 
-[TOC]
-
 ## Introduction
 The repository is dedicated to the Civo Naviagte Conference presentation of [Sveltos](https://github.com/projectsveltos).
 
