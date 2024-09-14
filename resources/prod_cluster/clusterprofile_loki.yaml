@@ -1,0 +1,20 @@
+---
+apiVersion: config.projectsveltos.io/v1beta1
+kind: ClusterProfile
+metadata:
+  name: loki-2102-prod
+spec:
+  dependsOn:
+  - prometheus-community-5662
+  clusterSelector:
+    matchLabels:
+      env: prod
+  syncMode: Continuous
+  helmCharts:
+  - repositoryURL: https://grafana.github.io/helm-charts
+    repositoryName: grafana
+    chartName: grafana/loki-stack
+    chartVersion: v2.10.2
+    releaseName: loki
+    releaseNamespace: loki-stack
+    helmChartAction: Install

@@ -1,0 +1,41 @@
+---
+apiVersion: config.projectsveltos.io/v1beta1
+kind: ClusterProfile
+metadata:
+  name: prometheus-community-6020
+spec:
+  clusterSelector:
+    matchLabels:
+      env: test
+  syncMode: Continuous
+  helmCharts:
+  - repositoryURL: https://prometheus-community.github.io/helm-charts
+    repositoryName: prometheus-community
+    chartName: prometheus-community/kube-prometheus-stack
+    chartVersion: v60.2.0
+    releaseName: prometheus-community
+    releaseNamespace: monitoring
+    helmChartAction: Install
+    values: |
+      grafana:
+        service:
+          type: LoadBalancer
+      prometheus-node-exporter:
+        service:
+          port: 9200
+          targetPort: 9200
+  validateHealths:
+  - name: deployment-health
+    featureID: Helm
+    group: "apps"
+    version: "v1"
+    kind: "Deployment"
+    namespace: monitoring
+    script: |
+      function evaluate()
+        local hs = {healthy = false, message = "Available replicas not match requested replicas"}
+        if obj.status and obj.status.availableReplicas ~= nil and obj.status.availableReplicas == obj.spec.replicas then
+          hs.healthy = true
+        end
+        return hs
+      end
