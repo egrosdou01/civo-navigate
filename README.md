@@ -1,84 +1,47 @@
-# Civo Navigate Berlin 2024
+# Civo Navigate Resources
 
-## Introduction
-The repository is dedicated to the Civo Naviagte Conference presentation of [Sveltos](https://github.com/projectsveltos).
+Welcome to the repository containing all the resources presented during the **Civo Navigate** events! The repo includes the materials, code, configurations, and examples shared throughout the demos, which focuses on various open-source, cloud-native technologies using the Civo Cloud platform.
 
-## How to
+## Table of Contents
 
-### Assumptions
-- We assume a Kubernetes management cluster is already in place with **Sveltos** installed. Sveltos installation details can be found [here](https://projectsveltos.github.io/sveltos/getting_started/install/install/).
-- We assume the Kubernetes managed clusters are in place with no CNI in place
+- [Overview](#overview)
+- [Event Topics](#event-topics)
+- [Resources Included](#resources-included)
+- [Setup Instructions](#setup-instructions)
 
-### Prerequisites
-- Install `kubectl` and `sveltosctl`
-- Obtain the `kubeconfig` of the clusters
+## Overview
 
-**Note**: Download the `sveltosctl` [here](https://github.com/projectsveltos/sveltosctl/releases.
+**Civo Navigate** is your destination for cutting-edge talks and workshops focused on mastering the cloud-native landscape. Expect innovation at its core, with sessions geared towards redefining cloud-native possibilities. 🌐🚀
 
-### Management Cluster - Create Required Namespaces
-```bash
-$ kubectl apply -f resources/namespaces/ns_test.yaml,resources/namespaces/ns_prod.yaml
-```
+During the different **Civo Navigate** events, we demonstrated how the [Sveltos Kubernetes Add-on Controller](https://github.com/projectsveltos) can be used to deploy various add-ons and applications in a **Civo Cloud** environment. The interactive sessions allowed attendees to explore the open-source tooling used and provided a fresh, modern approach to GitOps methodologies. 🖥️☁️
 
-### Management Cluster - Register Clusters with Sveltos
+For more details, visit the [official Civo Navigate website](https://www.civo.com/navigate). 
 
-```bash
-$ ./sveltosctl register cluster \
---namespace=test --cluster=test01 \
---kubeconfig=/path/to/kubeconfig --labels=env=test
+## Event Topics
 
-$ ./sveltosctl register cluster \
---namespace=prod --cluster=prod01 \
---kubeconfig=/path/to/kubeconfig --labels=env=prod
-```
+During the event, we covered a variety of topics, including but not limited to:
 
-#### Validate Registration
+- **Kubernetes Add-ons and Application Deployment**: Simplifying Kubernetes add-on and application deployment using Sveltos
+- **Open-Source Tooling for Deployment**: Leveraging open-source tools for advanced automation
+- **GitOps**: Automating deployments and updates using the GitOps principles
+- **Scaling Applications**: Techniques for scaling applications seamlessly in a Civo environment
 
-```bash
-$ kubectl get sveltosclusters -A --show-labels
-```
+## Resources Included
 
-### Management Cluster - Deploy Cilium
+Within the **resources** folder, you can locate different **Civo Navigate** event resources. Each event has its own folder. The below are included.
 
-```bash
-$ kubectl apply -f resources/test_cluster/clusterprofile_cilium.yaml,resources/prod_cluster/clusterprofile_cilium.yaml
-```
+- **Code**: The example configurations used during the event
+- **Documentation**: Detailed guide, step-by-step instructions, and context for each session
 
-#### Validate Deployment
+Each folder includes a **README.md** file with additional instructions and context.
 
-```bash
-$ ./sveltosctl show addons
-```
+## Setup Instructions
 
-### Management Cluster - Deploy Grafana/Prometheus/Loki
+To get started with the resources, follow these steps:
 
-```bash
-$ kubectl apply -f resources/test_cluster/clusterprofile_grafana_prometheus.yaml,resources/test_cluster/clusterprofile_loki.yaml
-$ kubectl apply -f resources/prod_cluster/clusterprofile_grafana_prometheus.yaml,resources/prod_cluster/clusterprofile_loki.yaml
-```
+1. **Clone the Repository**:
 
-#### Validate Deployment
-
-```bash
-$ ./sveltosctl show addons
-```
-
-**Note**: Feel free to update the Helm chart versions mentioned in the manifest files.
-
-### Access Resources
-
-#### Hubble UI
-The access to the Cilium Hubble UI, we can either use `kubectl port-forward` or update the `hubble-ui` service to `NodePort` or `LoadBalancer`.
-
-For more details about the Hubble UI, check out the [link](https://docs.cilium.io/en/v1.15/gettingstarted/hubble/).
-
-#### Grafana UI
-The Grafana UI is already exposed as a `LoadBalancer` service. The service is located in the `monitoring` namespace.
-
-```
-Username: admin
-Password: prom-operator
-```
-
-#### Loki
-To integrate Loki, follow the instructions mentioned [here](https://medium.com/devops-dev/5-step-approach-automate-kubernetes-monitoring-with-projectsveltos-grafana-prometheus-and-loki-696fa7201e5b).
+   ```bash
+   git clone https://github.com/egrosdou01/civo-navigate-2024
+   cd resources
+   ```
